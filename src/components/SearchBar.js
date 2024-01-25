@@ -1,6 +1,42 @@
 import React from "react";
 
-function SearchBar() {
+function SearchBar({stockDisplay, setStockDisplay, handleFilter}) {
+  function handleSort(e) {
+    if(e.target.value === 'Alphabetically') {
+      const newDisplay = stockDisplay.sort((a, b) => {
+        const nameA = a.name.toLowerCase()
+        const nameB = b.name.toLowerCase()
+
+        if(nameA > nameB) {
+          return 1
+        }
+        if(nameA < nameB) {
+          return -1
+        }
+
+        return 0
+      })
+
+      setStockDisplay([...newDisplay])
+    }
+    else if(e.target.value === 'Price') {
+      const newDisplay = stockDisplay.sort((a, b) => {
+        if (a.price > b.price) {
+          return 1
+        }
+        if (a.price < b.price) {
+          return -1
+        }
+
+        return 0
+      })
+
+      setStockDisplay([...newDisplay])
+    }
+  }
+
+
+  
   return (
     <div>
       <strong>Sort by:</strong>
@@ -10,7 +46,7 @@ function SearchBar() {
           value="Alphabetically"
           name="sort"
           checked={null}
-          onChange={null}
+          onChange={handleSort}
         />
         Alphabetically
       </label>
@@ -20,14 +56,14 @@ function SearchBar() {
           value="Price"
           name="sort"
           checked={null}
-          onChange={null}
+          onChange={handleSort}
         />
         Price
       </label>
       <br />
       <label>
         <strong>Filter:</strong>
-        <select onChange={null}>
+        <select onChange={handleFilter}>
           <option value="Tech">Tech</option>
           <option value="Sportswear">Sportswear</option>
           <option value="Finance">Finance</option>
