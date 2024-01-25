@@ -10,8 +10,7 @@ function MainContainer() {
   useState(() => {
     fetch('http://localhost:3001/stocks')
     .then((r) => r.json())
-    .then((data) => console.log(data))
-    // .then((data) => setStockList(data))
+    .then((data) => setStockList(data))
   }, [])
   
   return (
@@ -19,7 +18,7 @@ function MainContainer() {
       <SearchBar />
       <div className="row">
         <div className="col-8">
-          <StockContainer />
+          <StockContainer stockList={stockList}/>
         </div>
         <div className="col-4">
           <PortfolioContainer />
